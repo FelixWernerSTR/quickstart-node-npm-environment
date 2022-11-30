@@ -1,0 +1,9 @@
+registry=https://nexus_repo
+strict-ssl=false
+mail=felixwerner@gmx.de
+_auth=[your personal token from nexus]
+loglevel=info
+fetch-timeout=600000
+maxconnections=1
+
+
