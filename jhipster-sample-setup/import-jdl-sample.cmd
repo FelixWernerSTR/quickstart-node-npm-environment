@@ -1,3 +1,3 @@
 set PATH=%PATH%;%~dp0/../node
-setJava.cmd
+call setJava.cmd
 jhipster import-jdl sample.jdl
