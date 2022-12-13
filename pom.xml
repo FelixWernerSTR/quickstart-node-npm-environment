@@ -133,6 +133,7 @@
 	                                    <include>sample.jdl</include>
 	                                    <include>install-generator-jhipster.cmd</include>
 	                                    <include>import-jdl-sample.cmd</include>
+	                                    <include>setJava.cmd</include>
 	                                  </includes>
 	                                </resource>
 	                              </resources>
