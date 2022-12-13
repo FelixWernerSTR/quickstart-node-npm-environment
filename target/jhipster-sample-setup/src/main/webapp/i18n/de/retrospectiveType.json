@@ -1,0 +1,24 @@
+{
+  "retrospectiveManagerApp": {
+    "retrospectiveType": {
+      "home": {
+        "title": "Retrospective Types",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Retrospective Type erstellen",
+        "createOrEditLabel": "Retrospective Type erstellen oder bearbeiten",
+        "notFound": "Keine Retrospective Types gefunden"
+      },
+      "created": "Retrospective Type erstellt mit ID {{ param }}",
+      "updated": "Retrospective Type aktualisiert mit ID {{ param }}",
+      "deleted": "Retrospective Type gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Retrospective Type {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Retrospective Type"
+      },
+      "id": "ID",
+      "name": "Name"
+    }
+  }
+}

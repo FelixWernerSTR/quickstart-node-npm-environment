@@ -1,0 +1,27 @@
+{
+  "retrospectiveManagerApp": {
+    "retrospectiveItem": {
+      "home": {
+        "title": "Retrospective Items",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Retrospective Item",
+        "createOrEditLabel": "Create or edit a Retrospective Item",
+        "notFound": "No Retrospective Items found"
+      },
+      "created": "A new Retrospective Item is created with identifier {{ param }}",
+      "updated": "A Retrospective Item is updated with identifier {{ param }}",
+      "deleted": "A Retrospective Item is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Retrospective Item {{ id }}?"
+      },
+      "detail": {
+        "title": "Retrospective Item"
+      },
+      "id": "ID",
+      "content": "Content",
+      "file": "File",
+      "titel": "Titel",
+      "retrospectiveType": "Retrospective Type"
+    }
+  }
+}
