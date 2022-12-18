@@ -3,10 +3,10 @@
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.fewe.NodeNpmEnvironment</groupId>
-	<artifactId>NodeNpmEnvironment</artifactId>
+	<groupId>de.fewe.node-npm-environment</groupId>
+	<artifactId>node-npm-environment</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>NodeNpmEnvironment</name>
+	<name>node-npm-environment</name>
 	<packaging>pom</packaging>
 	<description>Dieses Maven-Projekt installiert Node in bestimmten Version(${node.version})
 	um dann in der Shell verwenden zu können(startConsoleWithNodeNpmSupport.cmd).</description>
