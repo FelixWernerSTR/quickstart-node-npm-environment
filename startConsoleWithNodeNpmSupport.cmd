@@ -1,2 +1,2 @@
-set PATH=%PATH%;%~dp0/target/node
+set PATH=%~dp0/target/node;%PATH%
 call cmd.exe

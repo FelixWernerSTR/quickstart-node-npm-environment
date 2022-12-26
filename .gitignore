@@ -27,3 +27,5 @@ hs_err_pid*
 /package-lock.json
 /.settings/org.eclipse.core.resources.prefs
 /.settings/org.eclipse.m2e.core.prefs
+*.dll
+/target/jhipster-sample-setup
