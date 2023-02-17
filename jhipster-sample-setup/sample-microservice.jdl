@@ -1,19 +1,38 @@
-
+// kann hier modeliert werden: https://start.jhipster.tech/jdl-studio/
 application {
   config {
     baseName RetrospectiveManager,
-    applicationType monolith,
+    applicationType microservice,
     packageName de.svi.retrospective,
     authenticationType session,
     buildTool maven,
     cacheProvider ehcache,
-    clientFramework vue,
+    skipClient true,
     languages [de, en],
     nativeLanguage de,
     prodDatabaseType oracle,
     devDatabaseType h2Memory,
     dtoSuffix Dto,
     enableHibernateCache true,
+    enableSwaggerCodegen false,
+	clientTheme Pulse,
+    clientThemeVariant primary,
+    skipUserManagement true,
+    jhiPrefix svi
+  }
+  entities RetrospectiveType, RetrospectiveItem
+}
+
+application {
+  config {
+    baseName RetrospectiveManagerUI,
+    applicationType gateway,
+    packageName de.svi.retrospective,
+    buildTool maven,
+    clientFramework vue,
+    skipServer true,
+    languages [de, en],
+    nativeLanguage de,
     enableSwaggerCodegen false,
 	clientTheme Pulse,
     clientThemeVariant primary,

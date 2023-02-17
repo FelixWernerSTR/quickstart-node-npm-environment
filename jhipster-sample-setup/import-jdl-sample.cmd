@@ -1,3 +1,2 @@
-set PATH=%PATH%;%~dp0/../node
-call setJava.cmd
-jhipster import-jdl sample.jdl
+set PATH=%~dp0/../node;%PATH%
+jhipster import-jdl sample-monolith.jdl

@@ -1,3 +1,2 @@
-set PATH=%PATH%;%~dp0/../node
-call setJava.cmd
+set PATH=%~dp0/../node;%PATH%
 jhipster --blueprints quarkus-dm import-jdl sample.jdl

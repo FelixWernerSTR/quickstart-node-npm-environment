@@ -1,3 +1,3 @@
 #!/bin/bash
-export PATH=%PATH%:${project.basedir}/target/node
+export PATH=${project.basedir}/target/node:%PATH%
 npm install -g generator-jhipster
