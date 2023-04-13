@@ -18,7 +18,8 @@ application {
 	clientTheme Pulse,
     clientThemeVariant primary,
     skipUserManagement true,
-    jhiPrefix svi
+    jhiPrefix svi,
+    serviceDiscoveryType no
   }
   entities RetrospectiveType, RetrospectiveItem
 }
