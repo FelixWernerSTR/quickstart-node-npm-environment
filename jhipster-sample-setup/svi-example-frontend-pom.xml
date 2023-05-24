@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.svi.partner</groupId>
+    <artifactId>partner-manager-ui</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Partner Manager UI</name>
+
+	<properties>
+		<!-- Build properties -->
+		<maven.version>3.6.0</maven.version>
+		<java.version>11</java.version>
+		<node.version>v16.20.0</node.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+
+		<!-- Plugin versions -->
+		<frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+		<!-- Quelle: https://nodejs.org/dist/ , https://registry.npmjs.org/npm/-/npm-x.xx.xx.tgz -->
+		<!-- https://nexus.pr.sv.loc/repository/npm_IK1IK2_group/@ampproject/[MODULNAME]/-/[MODULNAME]-x.x.x.tgz -->
+		<!-- node.npm.downloadRoot>https://nexus.pr.sv.loc/repository/raw-group/nodejs/</node.npm.downloadRoot -->
+		<!-- node.npm.downloadRoot>https://nodejs.org/dist/</node.npm.downloadRoot -->
+		<node.npm.downloadRoot>https://nexus.pr.sv.loc/repository/raw-group/nodejs/</node.npm.downloadRoot>
+		<maven.settings.serverId>central-proxy</maven.settings.serverId>
+
+		<!--mvn fr.jcgay.maven.plugins:buildplan-maven-plugin:1.3:list -->
+	</properties>
+
+	<dependencies>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<configuration>
+					<nodeVersion>${node.version}</nodeVersion>
+					<nodeDownloadRoot>${node.npm.downloadRoot}</nodeDownloadRoot>
+					<serverId>${maven.settings.serverId}</serverId>
+					<installDirectory>target</installDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install-node-and-npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>webapp build prod</id> <!-- Beispiel für Bau einer JS-Anwendung: <skip>false</skip> -->
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<arguments>run webapp:build</arguments>
+							<environmentVariables>
+								<APP_VERSION>${project.version}</APP_VERSION>
+							</environmentVariables>
+							<npmInheritsProxyConfigFromMaven>true</npmInheritsProxyConfigFromMaven>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>enforce-files-exist</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<phase>process-resources</phase>
+						<configuration>
+							<rules>
+								<requireFilesExist>
+									<files>
+										<file>${project.basedir}/package-lock.json</file>
+									</files>
+								</requireFilesExist>
+							</rules>
+							<fail>true</fail>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+	</profiles>
+</project>

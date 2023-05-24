@@ -1,0 +1,57 @@
+// kann hier modeliert werden: https://start.jhipster.tech/jdl-studio/
+application {
+  config {
+    baseName NexusRepoDescriptionManager,
+    applicationType monolith,
+    packageName de.fewe.nexus.repo.description,
+    authenticationType session,
+    buildTool maven,
+    cacheProvider no,
+    clientFramework vue,
+    languages [de, en],
+    nativeLanguage de,
+    prodDatabaseType oracle,
+    devDatabaseType h2Memory,
+    dtoSuffix Dto,
+    enableHibernateCache false,
+    enableSwaggerCodegen false,
+    skipUserManagement true,
+    jhiPrefix svi
+  }
+  entities NexusRepoDescription, NexusRepoDescriptionType, CleanupPolicy
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity NexusRepoDescription {
+    name String maxlength(50),  
+    verantwortlich String maxlength(50),
+    produktion Boolean,
+    archivierenZeitraumInMonaten Integer min(0) max(120),
+    beschreibung TextBlob
+}
+
+entity NexusRepoDescriptionType {
+    typeFormat String required maxlength(50),
+}
+
+entity CleanupPolicy {
+    name String required maxlength(50),
+    notes String required,
+}
+
+relationship ManyToOne {
+	NexusRepoDescription{nexusRepoDescriptionType(typeFormat)} to NexusRepoDescriptionType
+	NexusRepoDescription{cleanupPolicy(name)} to CleanupPolicy
+}
+
+// Set pagination options
+paginate NexusRepoDescription with infinite-scroll
+paginate NexusRepoDescriptionType with infinite-scroll
+paginate CleanupPolicy with infinite-scroll
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+ service all with serviceClass

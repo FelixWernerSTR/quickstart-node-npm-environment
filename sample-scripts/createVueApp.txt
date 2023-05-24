@@ -1,0 +1,18 @@
+https://reactgo.com/vue-cli3-tutorial-creating-project/
+npm install -g @vue/cli@5.0.8
+vue create my-vue-app  (mit Pfeiltasten auswählen: "Manually select features") Nicht im Eclipse-Terminal aufrufen. Manche Auswahlmöglichkeiten nichtsichtbar!!!
+Leider tut es bei uns nicht wegen nexus lifecycle!!!
+
+deswegen so!!!:
+1. Schritt "clean install"
+2. aus Eclipse: startConsoleWithNodeNpmSupport.cmd "show in -> system explorer" und ausführen
+3. npm run vue-cli-create-app [dein-projekt-name] (weiteren Schritte auf der Konsole gezeigt)
+
+https://vuejs.org/guide/quick-start.html#creating-a-vue-application
+Mit Vite statt Vue cli!!!
+1. Schritt "clean install"
+2. aus Eclipse: startConsoleWithNodeNpmSupport.cmd "show in -> system explorer" und ausführen
+3. npm init vue@latest (weiteren Schritte werden auf der Konsole gezeigt)
+
+So erstellte Projekte können dann mit einer pom.xml aus Root-Verzeichnis ausgestattet werden.
+Dann können sie automatisiert gebaut und paketiert werden. 

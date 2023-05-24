@@ -1,0 +1,37 @@
+// kann hier modeliert werden: https://start.jhipster.tech/jdl-studio/ , beim Generieren Node 16.x verwenden!
+application {
+  config {
+    baseName RESTHealthCheck,
+    applicationType microservice,
+    packageName de.fewe.healthcheck,
+    authenticationType session,
+    buildTool maven,
+    cacheProvider no,
+    clientFramework no,
+    nativeLanguage	en,
+    skipClient true,
+    prodDatabaseType oracle,
+    devDatabaseType h2Memory,
+    dtoSuffix Dto,
+    enableHibernateCache false,
+    enableSwaggerCodegen false,
+    skipUserManagement true,
+    jhiPrefix svi,
+    serviceDiscoveryType no,
+    serverPort 8080
+  }
+  entities HealthCheck
+}
+  
+// an ignored comment
+/** not an ignored comment */
+entity HealthCheck {
+    name String maxlength(50),  
+    description String,
+    date LocalDate,
+    code Integer
+}
+
+// Set service options to all except few
+ service all with serviceClass
+    
