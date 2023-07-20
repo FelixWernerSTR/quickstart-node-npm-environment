@@ -1,9 +1,9 @@
 // kann hier modeliert werden: https://start.jhipster.tech/jdl-studio/ , beim Generieren Node 16.x verwenden!
 application {
   config {
-    baseName RESTHealthCheck,
+    baseName SVIS3GWebHealthCheck,
     applicationType microservice,
-    packageName de.fewe.healthcheck,
+    packageName de.svi.svis.healthcheck,
     authenticationType session,
     buildTool maven,
     cacheProvider no,

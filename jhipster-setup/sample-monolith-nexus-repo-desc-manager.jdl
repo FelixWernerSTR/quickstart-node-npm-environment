@@ -3,7 +3,7 @@ application {
   config {
     baseName NexusRepoDescriptionManager,
     applicationType monolith,
-    packageName de.fewe.nexus.repo.description,
+    packageName de.svi.nexus.repo.description,
     authenticationType session,
     buildTool maven,
     cacheProvider no,

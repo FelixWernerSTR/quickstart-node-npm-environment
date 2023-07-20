@@ -1,12 +1,12 @@
 // kann hier modeliert werden: https://start.jhipster.tech/jdl-studio/
 application {
   config {
-    baseName RetrospectiveManager,
+    baseName PartnerManager,
     applicationType microservice,
-    packageName de.svi.retrospective,
+    packageName de.svi.partner,
     authenticationType session,
     buildTool maven,
-    cacheProvider ehcache,
+    cacheProvider no,
     skipClient true,
     languages [de, en],
     nativeLanguage de,
@@ -15,53 +15,60 @@ application {
     dtoSuffix Dto,
     enableHibernateCache true,
     enableSwaggerCodegen false,
-	clientTheme Pulse,
     clientThemeVariant primary,
     skipUserManagement true,
     jhiPrefix svi,
-    serviceDiscoveryType no
+    serviceDiscoveryType no,
+    serverPort 8080
   }
-  entities RetrospectiveType, RetrospectiveItem
+  entities Partner, PartnerType
 }
 
 application {
   config {
-    baseName RetrospectiveManagerUI,
+    baseName PartnerManagerUI,
     applicationType gateway,
-    packageName de.svi.retrospective,
+    packageName de.svi.partner,
+    authenticationType session,
     buildTool maven,
     clientFramework vue,
     skipServer true,
     languages [de, en],
     nativeLanguage de,
     enableSwaggerCodegen false,
-	clientTheme Pulse,
     clientThemeVariant primary,
     skipUserManagement true,
-    jhiPrefix svi
+    jhiPrefix svi,
+    serverPort 8080
   }
-  entities RetrospectiveType, RetrospectiveItem
-}
-
-entity RetrospectiveType {
-    name String required maxlength(50),
+  entities Partner, PartnerType
 }
 
 // an ignored comment
 /** not an ignored comment */
-entity RetrospectiveItem {
-    content TextBlob,
-    file Blob,
-    titel String maxlength(70),
+entity Partner {
+    description TextBlob,
+    name String maxlength(50),
+    vorname String maxlength(50),
+    geburtsDatum LocalDate,
+    partnerNummer Integer min(0) max(10000000),
+    strasse String maxlength(50),
+    hausNummer Integer min(0) max(100000),
+    plz Integer min(0) max(100000),
+    land String maxlength(50)
+}
+
+entity PartnerType {
+    name String required maxlength(50),
 }
 
 relationship ManyToOne {
-	RetrospectiveItem{RetrospectiveType(name)} to RetrospectiveType
+	Partner{PartnerType(name)} to PartnerType
 }
 
 // Set pagination options
-paginate RetrospectiveItem with infinite-scroll
-paginate RetrospectiveType with infinite-scroll
+paginate Partner with infinite-scroll
+paginate PartnerType with infinite-scroll
 
 // Use Data Transfer Objects (DTO)
 // dto * with mapstruct

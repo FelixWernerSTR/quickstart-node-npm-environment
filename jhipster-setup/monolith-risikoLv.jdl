@@ -1,0 +1,134 @@
+// kann hier modeliert werden: https://start.jhipster.tech/jdl-studio/, beim Generieren Node 16.x verwenden!
+application {
+  config {
+    baseName RisikoLv,
+    applicationType monolith,
+    packageName de.svi.nfs,
+    authenticationType session,
+    buildTool maven,
+    cacheProvider no,
+    skipClient false,
+    clientFramework vue,
+    languages [de, en],
+    nativeLanguage de,
+    prodDatabaseType oracle,
+    devDatabaseType h2Memory,
+    dtoSuffix Dto,
+    enableHibernateCache true,
+    enableSwaggerCodegen false,
+    clientThemeVariant primary,
+    skipUserManagement true,
+    jhiPrefix svi,
+    serviceDiscoveryType no,
+    serverPort 8080
+  }
+  entities RisikolvGevo, Partner, Angebot, Tarifierung, Buzv, Absicherung
+}
+
+
+/** RisikoLv for NFS */
+entity RisikolvGevo {
+    angebotsnummer BigDecimal min(0) max(1000000000000)
+}
+
+// an ignored comment
+/** Partner for NFS */
+entity Partner {
+	partnerNummer BigDecimal min(0) max(1000000000000),
+	plz String maxlength(50),
+	hausNummer String maxlength(50),
+	description String maxlength(400),
+	name String maxlength(50),
+	vorname String maxlength(50),
+	geburtsdatum ZonedDateTime,
+	land String maxlength(50),
+	geschlecht String maxlength(50),
+	koerpergroesse BigDecimal min(0) max(1000),
+	gewicht BigDecimal min(0) max(1000),
+	raucherJN String maxlength(1),
+	hauptadresse String maxlength(400),
+	mitgliedsart String maxlength(400),
+	tarifgruppe String maxlength(400),
+	geburtsort String maxlength(400),
+	geburtsland String maxlength(400),
+	familienstand String maxlength(50),
+	staatsangehoerigkeit String maxlength(50),
+	beruf String maxlength(50),
+	steuerId String maxlength(50),
+	telPrivat String maxlength(50),
+	telMobil String maxlength(50) 	
+}
+
+/** Angebot for NFS */
+entity Angebot {
+    angebotsnummer BigDecimal min(0) max(1000000000000),
+    rahmenvertrag String maxlength(400),
+    todesfallschutz String maxlength(50),
+    anzahlVps String maxlength(3),
+    schlagwort String maxlength(400),
+    versicherungsbeginn ZonedDateTime,
+    angebotsdatum ZonedDateTime,
+    buJN String maxlength(1)	
+}
+
+/** Tarifierung for NFS */
+entity Tarifierung {
+    berechnungsbasis String maxlength(50),
+    hoeheInEuro BigDecimal min(0) max(1000),
+    beitrag BigDecimal min(0) max(1000),
+    immobilienerwerberJN String maxlength(1),
+    versicherungsdauerInJahren BigDecimal min(0) max(1000),
+    ueberschussbeteiligung String maxlength(50),
+    jaerlicheDynamik String maxlength(50),
+    begrenzung String maxlength(50),
+    bergrenzungEuro BigDecimal min(0)
+}
+
+/** Buzv(berufunfaehigkeitszusatzversicherung) for NFS */
+entity Buzv  {
+    berechnungsbasisBuz String maxlength(400),
+    hoeheInEuro BigDecimal min(0),
+    wiedereingliederungshilfeJN String maxlength(1),
+    karenzzeitJN String maxlength(1),
+    arbeitsunfaehigkeitJN String maxlength(1),
+    laufzeitJahren BigDecimal min(0),
+    beitragszahlungJahren BigDecimal min(0),
+    leistungsdauerJahren BigDecimal min(0),
+    garantierteMonatBuz BigDecimal min(0),
+    wartezeit String maxlength(50),
+    laufzeit String maxlength(50),
+    ueberschussbeteiligung String maxlength(50)
+}
+
+entity Absicherung  {
+    versicherungsbeginn ZonedDateTime,
+    garantierteVersSumme BigDecimal min(0),
+    gesamtbeitrag BigDecimal min(0),
+    buz BigDecimal min(0),
+    dynamik String maxlength(50),
+    gesamtbeitragSofort BigDecimal min(0),
+    buzSofort BigDecimal min(0),
+    eintrittsalter BigDecimal min(0) max(2000),
+    versicherungsdauer BigDecimal min(0) max(2000),
+    ueberschussbeteiligung String maxlength(50)
+}
+
+
+relationship OneToOne {
+	Angebot{risikoLv(id) required} to RisikolvGevo{angebot(id)},
+	Tarifierung{risikoLv(id) required} to RisikolvGevo{tarifierung(id)},
+	Buzv{risikoLv(id) required} to RisikolvGevo{buzv(id)},
+	Absicherung{risikoLv(id) required} to RisikolvGevo{absicherung(id)}
+}
+
+// Set pagination options
+// paginate Partner with infinite-scroll
+// paginate Angebot with infinite-scroll
+
+
+// Use Data Transfer Objects (DTO)
+   dto all with mapstruct
+
+// Set service options to all except few
+   service all with serviceClass
+    

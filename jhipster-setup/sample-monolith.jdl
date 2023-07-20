@@ -1,0 +1,57 @@
+// kann hier modeliert werden: https://start.jhipster.tech/jdl-studio/ , beim Generieren Node 16.x verwenden!
+application {
+  config {
+    baseName PartnerManager,
+    applicationType monolith,
+    packageName de.svi.partner,
+    authenticationType session,
+    buildTool maven,
+    cacheProvider ehcache,
+    clientFramework vue,
+    languages [de, en],
+    nativeLanguage de,
+    prodDatabaseType oracle,
+    devDatabaseType h2Memory,
+    dtoSuffix Dto,
+    enableHibernateCache true,
+    enableSwaggerCodegen false,
+	clientTheme Pulse,
+    clientThemeVariant primary,
+    skipUserManagement true,
+    jhiPrefix svi
+  }
+  entities Partner, PartnerType
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Partner {
+    description TextBlob,
+    name String maxlength(50),
+    vorname String maxlength(50),
+    geburtsDatum LocalDate,
+    partnerNummer Integer min(0) max(10000000),
+    strasse String maxlength(50),
+    hausNummer Integer min(0) max(100000),
+    plz Integer min(0) max(100000),
+    land String maxlength(50)
+}
+
+entity PartnerType {
+    name String required maxlength(50),
+}
+
+relationship ManyToOne {
+	Partner{PartnerType(name)} to PartnerType
+}
+
+// Set pagination options
+paginate Partner with infinite-scroll
+paginate PartnerType with infinite-scroll
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+ service all with serviceClass
+    
