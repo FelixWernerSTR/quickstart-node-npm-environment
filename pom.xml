@@ -17,7 +17,7 @@
 		<!-- Build properties -->
 		<maven.version>3.6.0</maven.version>
 		<java.version>11</java.version>
-		<node.version>v18.18.2</node.version>
+		<node.version>v18.19.0</node.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
@@ -25,7 +25,6 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 
 		<!-- Plugin versions -->
-		<frontend-maven-plugin.version>1.14.0</frontend-maven-plugin.version>
 		<!-- Quelle: https://nodejs.org/dist/ , https://registry.npmjs.org/[MODULNAME]/-/[MODULNAME]-x.xx.xx.tgz -->
 		<!-- node.npm.downloadRoot>https://nodejs.org/dist/</node.npm.downloadRoot -->
 
@@ -40,7 +39,7 @@
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.14.0</version>
+				<version>1.15.0</version>
 				<configuration>
 					<nodeVersion>${node.version}</nodeVersion>
 					<nodeDownloadRoot>${node.npm.downloadRoot}</nodeDownloadRoot>
