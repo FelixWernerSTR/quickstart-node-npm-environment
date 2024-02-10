@@ -6,9 +6,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.svi.node-npm-environment</groupId>
-	<artifactId>node-npm-environment</artifactId>
+	<artifactId>quickstart-node-npm-environment</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>node-npm-environment</name>
+	<name>quickstart-node-npm-environment</name>
 	<packaging>pom</packaging>
 	<description>Dieses Maven-Projekt installiert Node in bestimmten Version(${node.version})
 	um dann in der Shell verwenden zu können(startConsoleWithNodeNpmSupport.cmd). Bitte README lesen!!!</description>
