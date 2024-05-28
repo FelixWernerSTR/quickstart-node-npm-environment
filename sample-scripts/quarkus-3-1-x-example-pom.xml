@@ -2,14 +2,8 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
     xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    
-    <parent>
-		<groupId>de.svi</groupId>
-		<artifactId>SVIApplication</artifactId>
-		<version>5.2.13</version>
-	</parent>
 
-    <groupId>de.svi.partner</groupId>
+    <groupId>de.fw.partner</groupId>
     <artifactId>partner-manager</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -26,14 +20,14 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- Dependency properties -->
-        <quarkus.platform.version>3.8.3</quarkus.platform.version> <!-- Achtung erfordert Umstellung auf jakarta-namespace!!! -->
+        <quarkus.platform.version>3.9.3</quarkus.platform.version> <!-- Achtung erfordert Umstellung auf jakarta-namespace!!! -->
         <mapstruct.version>1.5.2.Final</mapstruct.version>
         <resteasy-problem.version>3.0.0</resteasy-problem.version>
         <archunit-junit5.version>1.2.1</archunit-junit5.version>
         <assertj.version>3.25.1</assertj.version>
         <!-- The liquibase version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
-        <liquibase.version>4.20.0</liquibase.version>
+        <liquibase.version>4.27.0</liquibase.version>
 
         <!-- Plugin versions -->
         <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
