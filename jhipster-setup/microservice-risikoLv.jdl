@@ -77,11 +77,16 @@ entity Partner {
 	telMobil String maxlength(50) 	
 }
 
+enum Todesfallschutz {
+    KONSTANT("Konstant"),
+    LINEAR_FALLEND("Linear_fallend"),
+    ANNUITAETISCH_FALLEND(Annuitaetisch_fallend)
+}
 /** Angebot for NFS */
 entity Angebot {
     angebotsnummer BigDecimal min(0) max(1000000000000),
     rahmenvertrag String maxlength(400),
-    todesfallschutz String maxlength(50),
+    todesfallschutz Todesfallschutz,
     anzahlVps String maxlength(3),
     schlagwort String maxlength(400),
     versicherungsbeginn ZonedDateTime,

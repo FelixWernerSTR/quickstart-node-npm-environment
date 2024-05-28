@@ -1,6 +1,7 @@
-Dieses Maven-Projekt installiert Node in bestimmten Version(${node.version}) um dann in der Shell verwenden zu können(startConsoleWithNodeNpmSupport.cmd).
+Dieses Maven-Projekt installiert Node in bestimmten Version(${node.version}) um dann in der Shell verwenden zu können.
+startConsoleWithNodeNpmSupport.cmd in der Konsole oder Eclipse-Terminal ausführen und in der Konsole npm Verwenden(npm run dev/serve)
 
-.npmrcCopyToUserProfile sollte umbenannt(.npmrc) angepasst und nach C:\Users\[USERNAME] kopiert werden. Macht man das nicht bleibt der Maven-Build hängen.
+.npmrcCopyToUserProfile sollte umbenannt(.npmrc) angepasst und nach C:\Users\[USERNAME] kopiert werden. Beispiel: C:\Users\N000X1\.npmrc Macht man das nicht bleibt der Maven-Build hängen.
 
 Durch den Build wird getestet: 
 1. bestimmte Node-Version ist in unserem Nexus in(Raw-Repository) korrekt hochgeladen und ist funktional. 
