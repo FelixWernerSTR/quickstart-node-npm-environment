@@ -16,8 +16,8 @@
 	<properties>
 		<!-- Build properties -->
 		<maven.version>3.6.0</maven.version>
-		<java.version>11</java.version>
-		<node.version>v20.14.0</node.version>
+		<java.version>17</java.version>
+		<node.version>v20.17.0</node.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
@@ -102,14 +102,14 @@
 			</plugin>
 		</plugins>
 	</build>
-	<!-- Aufsetzen von Setups mit JHipster: 1. Anpassen/Entwickeln der jhipster-setup/sample.jdl(https://start.jhipster.tech/jdl-studio/) 
-		Nach dem Build ist der SourceCode unter target/sample zu finden -->
 	<profiles>
+	    <!-- Aufsetzen von Setups mit JHipster: 1. Anpassen/Entwickeln der jhipster-setup/sample.jdl(https://start.jhipster.tech/jdl-studio/) 
+		Nach dem Build ist der SourceCode unter target/sample zu finden -->
 		<profile>
 			<id>jhipster-setup</id>
 			<properties>
 				<!--[name-model.jdl] unter jhipster-setup ablegen Property: jhipster.model=[name-model] setzen!!! Zeile drunter oder -Dname-model=name-model -->
-		        <jhipster.model>microservice-risikoLv</jhipster.model>
+		    <jhipster.model>sample-microservice</jhipster.model>
 			</properties>
 			<build>
 				<plugins>
@@ -128,8 +128,15 @@
 									<overwrite>true</overwrite>
 									<resources>
 										<resource>
-										    <filtering>true</filtering>
+										  <filtering>true</filtering>
 											<directory>${project.basedir}/jhipster-setup</directory>
+											<includes>
+											  <include>${jhipster.model}.jdl</include>
+											  <include>import-jdl.cmd</include>
+											  <include>import-jdl.sh</include>
+											  <include>startCmdHere.cmd</include>
+											  <include>ShellScriptExecutor.java</include>
+											</includes>
 										</resource>
 									</resources>
 								</configuration>
@@ -137,45 +144,85 @@
 						</executions>
 					</plugin>
 					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>npm install generator-jhipster</id>
-								<phase>install</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
-									<executable>install-generator-jhipster.cmd</executable>
-								</configuration>
-							</execution>
-							<execution>
-								<id>npm import-jdl ${jhipster.model}.jdl</id>
-								<phase>install</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
-									<executable>import-jdl.cmd</executable>
-									<arguments>
-									  <argument>${jhipster.model}.jdl</argument>
-									</arguments>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
+			        <groupId>com.github.eirslett</groupId>
+			        <artifactId>frontend-maven-plugin</artifactId>
+			        <version>1.15.0</version>
+			        <executions>
+			          <execution>
+			            <id>npm install -g generator-jhipster</id>
+			            <goals>
+			              <goal>npm</goal>
+			            </goals>
+			            <phase>install</phase>
+			            <configuration>
+			              <workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
+			              <arguments>install -g generator-jhipster</arguments>
+			            </configuration>
+			          </execution>
+			        </executions>
+			      </plugin>
+		          <plugin>
+		            <groupId>org.codehaus.mojo</groupId>
+		            <artifactId>exec-maven-plugin</artifactId>
+		            <executions>
+		              <execution>
+		                <id>chmod, -R, 775 in ${project.build.directory}/${jhipster.model}</id>
+		                <phase>install</phase>
+		                <goals>
+		                  <goal>exec</goal>
+		                </goals>
+		                <configuration>
+		                  <workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
+		                  <executable>java</executable>
+		                  <arguments>
+		                    <argument>ShellScriptExecutor.java</argument>
+		                    <argument>${project.build.directory}/${jhipster.model}</argument>
+		                  </arguments>
+		                </configuration>
+		              </execution>
+		              <execution>
+		                <id>jhipster import-jdl ${jhipster.model}</id>
+		                <phase>install</phase>
+		                <goals>
+		                  <goal>exec</goal>
+		                </goals>
+		                <configuration>
+		                  <workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
+		                  <executable>${project.build.directory}/${jhipster.model}/import-jdl.${shell.extension}</executable>
+		                  <arguments>
+		                    <argument>${project.build.directory}/node</argument>
+		                    <argument>${jhipster.model}.jdl</argument>
+		                  </arguments>
+		                </configuration>
+		              </execution>
+		            </executions>
+		          </plugin>
 				</plugins>
 			</build>
 		</profile>
-		<profile>
-			<id>jhipster-setup-quarkus</id> <!-- Experimentel: alternativ zu SpringBoot mit Quarkus erfordert node 16 siehe node.version and jhipster793 -->
+	     <profile>
+	          <id>Windows</id>
+	          <activation>
+	              <os><family>windows</family></os>
+	          </activation>
+	          <properties>
+	              <shell.extension>cmd</shell.extension>
+	          </properties>
+	      </profile>
+	      <profile>
+	          <id>Linux</id>
+	          <activation>
+	              <os><family>unix</family></os>
+	          </activation>
+	          <properties>
+	              <shell.extension>sh</shell.extension>
+	          </properties>
+	      </profile>
+		  <profile>
+			<id>jhipster-setup-quarkus</id>
 			<properties>
 				<!--[name-model.jdl] unter jhipster-setup ablegen Property: jhipster.model=[name-model] setzen!!! Zeile drunter oder -Dname-model=name-model -->
-		        <jhipster.model>microservice-risikoLv</jhipster.model>
-		        <node.version>v16.20.2</node.version> <!--please set for -Pjhipster-sample-setup-quarkus to v16.20.1 -->
+		        <jhipster.model>monolith-risikoLv</jhipster.model>
 			</properties>
 			<build>
 				<plugins>
@@ -194,8 +241,14 @@
 									<overwrite>true</overwrite>
 									<resources>
 										<resource>
-										    <filtering>true</filtering>
+										  <filtering>true</filtering>
 											<directory>${project.basedir}/jhipster-setup</directory>
+											<includes>
+											  <include>${jhipster.model}.jdl</include>
+											  <include>import-jdl-quarkus.cmd</include>
+											  <include>startCmdHere.cmd</include>
+											  <include>ShellScriptExecutor.java</include>
+											</includes>
 										</resource>
 									</resources>
 								</configuration>
@@ -203,31 +256,38 @@
 						</executions>
 					</plugin>
 					<plugin>
+				      <groupId>com.github.eirslett</groupId>
+				        <artifactId>frontend-maven-plugin</artifactId>
+				        <version>1.15.0</version>
+				        <executions>
+				          <execution>
+				            <id>npm install -g generator-jhipster</id>
+				            <goals>
+				              <goal>npm</goal>
+				            </goals>
+				            <phase>install</phase>
+				            <configuration>
+				              <workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
+				              <arguments>install -g generator-jhipster@8.5.0</arguments>
+				            </configuration>
+				          </execution>
+				          <execution>
+				            <id>npm install -g generator-jhipster-quarkus</id>
+				            <goals>
+				              <goal>npm</goal>
+				            </goals>
+				            <phase>install</phase>
+				            <configuration>
+				              <workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
+				              <arguments>install -g generator-jhipster-quarkus</arguments>
+				            </configuration>
+				          </execution>
+				        </executions>
+				      </plugin>
+					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
 						<executions>
-							<execution>
-								<id>npm install generator-jhipster</id>
-								<phase>install</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
-									<executable>install-generator-jhipster794.cmd</executable>
-								</configuration>
-							</execution>
-							<execution>
-								<id>npm install generator-jhipster-quarkus</id>
-								<phase>install</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
-									<executable>install-generator-jhipster-quarkus.cmd</executable>
-								</configuration>
-							</execution>
 							<execution>
 								<id>npm import-jdl ${jhipster.model}.jdl</id>
 								<phase>install</phase>
@@ -236,72 +296,7 @@
 								</goals>
 								<configuration>
 									<workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
-									<executable>import-jdl-quarkus.cmd</executable>
-									<arguments>
-									  <argument>${jhipster.model}.jdl</argument>
-									</arguments>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>jhipster8-setup</id>
-			<properties>
-				<!--[name-model.jdl] unter jhipster-setup ablegen Property: jhipster.model=[name-model] setzen!!! Zeile drunter oder -Dname-model=name-model -->
-		        <jhipster.model>microservice-risikoLv</jhipster.model>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-resources-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>copy ${jhipster.model}.jdl to ${project.build.directory}/${jhipster.model}</id>
-								<phase>package</phase>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>${project.build.directory}/${jhipster.model}</outputDirectory>
-									<overwrite>true</overwrite>
-									<resources>
-										<resource>
-										    <filtering>true</filtering>
-											<directory>${project.basedir}/jhipster-setup</directory>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>npm install generator-jhipster</id>
-								<phase>install</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
-									<executable>install-generator-jhipster8.cmd</executable>
-								</configuration>
-							</execution>
-							<execution>
-								<id>npm import-jdl ${jhipster.model}</id>
-								<phase>install</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
-									<executable>import-jdl.cmd</executable>
+									<executable>import-jdl-quarkus.${shell.extension}</executable>
 									<arguments>
 									  <argument>${jhipster.model}.jdl</argument>
 									</arguments>

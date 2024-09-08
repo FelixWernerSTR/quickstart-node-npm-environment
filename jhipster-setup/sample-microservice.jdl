@@ -1,4 +1,4 @@
-// kann hier modeliert werden: https://start.jhipster.tech/jdl-studio/
+// do model the app here: https://start.jhipster.tech/jdl-studio/
 application {
   config {
     baseName PartnerManager,
