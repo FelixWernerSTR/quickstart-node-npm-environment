@@ -15,9 +15,10 @@
 
 	<properties>
 		<!-- Build properties -->
-		<maven.version>3.6.0</maven.version>
-		<java.version>17</java.version>
-		<node.version>v20.17.0</node.version>
+		<maven.version>3.8.0</maven.version>
+		<java.version>21</java.version>
+		<node.version>v22.14.0</node.version>
+		<frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
@@ -39,7 +40,7 @@
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.15.0</version>
+				<version>${frontend-maven-plugin.version>}</version>
 				<configuration>
 					<nodeVersion>${node.version}</nodeVersion>
 					<nodeDownloadRoot>${node.npm.downloadRoot}</nodeDownloadRoot>
@@ -146,7 +147,7 @@
 					<plugin>
 			        <groupId>com.github.eirslett</groupId>
 			        <artifactId>frontend-maven-plugin</artifactId>
-			        <version>1.15.0</version>
+			        <version>${frontend-maven-plugin.version}</version>
 			        <executions>
 			          <execution>
 			            <id>npm install -g generator-jhipster</id>
@@ -258,7 +259,7 @@
 					<plugin>
 				      <groupId>com.github.eirslett</groupId>
 				        <artifactId>frontend-maven-plugin</artifactId>
-				        <version>1.15.0</version>
+				        <version>${frontend-maven-plugin.version}</version>
 				        <executions>
 				          <execution>
 				            <id>npm install -g generator-jhipster</id>
