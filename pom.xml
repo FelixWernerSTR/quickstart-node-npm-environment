@@ -269,7 +269,7 @@
 				            <phase>install</phase>
 				            <configuration>
 				              <workingDirectory>${project.build.directory}/${jhipster.model}</workingDirectory>
-				              <arguments>install -g generator-jhipster@8.9.0</arguments>
+				              <arguments>install -g generator-jhipster@8.10.0</arguments>
 				            </configuration>
 				          </execution>
 				          <execution>

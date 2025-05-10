@@ -1,0 +1,50 @@
+
+application {
+  config {
+    baseName Codes,
+    applicationType monolith,
+    packageName de.svi.isi.codes,
+    authenticationType session,
+    buildTool maven,
+    clientFramework vue,
+    languages [de, en],
+    nativeLanguage de,
+    prodDatabaseType oracle,
+    devDatabaseType h2Memory,
+    dtoSuffix Dto,
+    //enableHibernateCache true,
+    enableSwaggerCodegen false,
+    skipUserManagement true,
+    jhiPrefix svi
+	//cacheProvider hazelcast, 
+	//testFrameworks [cypress,gatling,cucumber,protractor]
+  }
+  entities Codes, CodeTabellen
+}
+
+entity Codes{
+    sortierKz String maxlength(2),
+    geaendertAm LocalDate,
+    geaendertVon String maxlength(20),
+    bezeichnung String maxlength(200),
+    code String maxlength(30),
+    name String maxlength(30)
+}
+
+entity CodeTabellen{
+    geaendertAm LocalDate,
+    geaendertVon String maxlength(20),
+    datentyp String maxlength(1),
+    bezeichnung String maxlength(200),
+    name String maxlength(30)
+}
+
+relationship OneToMany {
+	CodeTabellen{codes(bezeichnung)} to Codes
+}
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+ service all with serviceClass
